@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Internship Registration</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #f5f0e8;
+      --card:     #fffdf9;
+      --accent:   #c8401e;
+      --accent2:  #e8622a;
+      --dark:     #1a1209;
+      --mid:      #5c4a2a;
+      --muted:    #9e8c72;
+      --border:   #e2d9c8;
+      --error:    #c0392b;
+      --input-bg: #faf7f2;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'Nunito', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      background: var(--dark);
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+      opacity: 0.45;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .hero-badge {
+      background: var(--accent);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 2px;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+
+    .hero h1 span { color: var(--accent2); }
+
+    .hero p {
+      color: #ccc;
+      font-size: 14px;
+      max-width: 400px;
+      line-height: 1.7;
+    }
+
+    /* ── TOP ACTION BAR ── */
+    .action-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      padding: 12px 24px;
+    }
+
+    .btn-show-all {
+      background: var(--dark);
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: 3px;
+      letter-spacing: 0.5px;
+      transition: background 0.2s;
+    }
+
+    .btn-show-all:hover { background: var(--accent); }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      padding: 40px 16px 60px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 44px 40px;
+      width: 100%;
+      max-width: 700px;
+      box-shadow: 0 8px 40px rgba(26,18,9,0.10);
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .section-gap { margin-top: 32px; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px 22px;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .field.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--mid);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    input, select {
+      background: var(--input-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      color: var(--dark);
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 11px 13px;
+      outline: none;
+      width: 100%;
+      -webkit-appearance: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input::placeholder { color: #c4b9a8; }
+
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(200,64,30,0.12);
+      background: #fff;
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235c4a2a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      cursor: pointer;
+    }
+
+    /* ── ERROR BANNER ── */
+    .error-banner {
+      background: #fdf0ef;
+      border: 1.5px solid #f0bdb8;
+      color: var(--error);
+      padding: 12px 16px;
+      border-radius: 3px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    /* ── SUBMIT ── */
+    .submit-wrap { margin-top: 32px; }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 15px;
+      background: var(--accent);
+      border: none;
+      border-radius: 3px;
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 16px rgba(200,64,30,0.30);
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    button[type="submit"]:hover {
+      background: var(--accent2);
+      transform: translateY(-1px);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 18px;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 580px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .card { padding: 26px 18px; }
+      .hero-img { height: 220px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO WITH SPLASH IMAGE -->
+  <div class="hero">
+    <img
+      class="hero-img"
+      src="https://static.toiimg.com/thumb/msid-69877470,width-400,resizemode-4/69877470.jpg"
+      alt="Students working together"
+    />
+    <div class="hero-overlay">
+      <div class="hero-badge">Internship Programme 2025</div>
+      <h1>Student <span>Registration</span><br/>Portal</h1>
+      <p>Complete the form below to apply. All fields are mandatory.</p>
+    </div>
+  </div>
+
+  <!-- ACTION BAR -->
+  <div class="action-bar">
+    <a href="/students" class="btn-show-all">📋 Show All Details</a>
+  </div>
+
+  <!-- FORM -->
+  <main>
+    <div class="card">
+
+      {% if error %}
+      <div class="error-banner">⚠️ {{ error }}</div>
+      {% endif %}
+
+      <form action="/register" method="POST">
+
+        <div class="section-label">Personal Information</div>
+        <div class="grid-2">
+          <div class="field">
+            <label>Full Name</label>
+            <input type="text" name="full_name" placeholder="e.g. Arjun Kumar" required/>
+          </div>
+          <div class="field">
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="you@college.edu" required/>
+          </div>
+          <div class="field">
+            <label>Phone Number</label>
+            <input type="tel" name="phone" placeholder="+91 98765 43210" required/>
+          </div>
+          <div class="field">
+            <label>College / University</label>
+            <input type="text" name="college" placeholder="e.g. Anna University" required/>
+          </div>
+        </div>
+
+        <div class="section-gap">
+          <div class="section-label">Academic Details</div>
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label>Department</label>
+            <input type="text" name="department" placeholder="e.g. Computer Science" required/>
+          </div>
+          <div class="field">
+            <label>Year of Study</label>
+            <select name="year_of_study" required>
+              <option value="">Select year</option>
+              <option>1st Year</option>
+              <option>2nd Year</option>
+              <option>3rd Year</option>
+              <option>4th Year</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="section-gap">
+          <div class="section-label">Internship Details</div>
+        </div>
+        <div class="grid-2">
+          <div class="field full">
+            <label>Internship Domain</label>
+            <select name="internship_domain" required>
+              <option value="">Select a domain</option>
+              <option>Web Development</option>
+              <option>Data Science</option>
+              <option>Machine Learning / AI</option>
+              <option>Mobile Development</option>
+              <option>Cybersecurity</option>
+              <option>Cloud Computing</option>
+              <option>UI/UX Design</option>
+              <option>Embedded Systems</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Start Date</label>
+            <input type="date" name="start_date" required/>
+          </div>
+          <div class="field">
+            <label>End Date</label>
+            <input type="date" name="end_date" required/>
+          </div>
+        </div>
+
+        <div class="submit-wrap">
+          <button type="submit">Submit Registration →</button>
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    Connected to WAMP MySQL via Flask &nbsp;·&nbsp; Internship Portal © 2025
+  </footer>
+
+</body>
+</html>

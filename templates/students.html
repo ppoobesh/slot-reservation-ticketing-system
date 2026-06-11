@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>All Registered Students</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #f5f0e8;
+      --card:    #fffdf9;
+      --accent:  #c8401e;
+      --dark:    #1a1209;
+      --mid:     #5c4a2a;
+      --muted:   #9e8c72;
+      --border:  #e2d9c8;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'Nunito', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: var(--dark);
+      color: #fff;
+      padding: 30px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 900;
+    }
+
+    .header h1 span { color: #e8622a; }
+
+    .btn-back {
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 3px;
+      transition: background 0.2s;
+    }
+
+    .btn-back:hover { background: #a8321a; }
+
+    /* ── CONTENT ── */
+    main {
+      flex: 1;
+      padding: 36px 24px 60px;
+      overflow-x: auto;
+    }
+
+    .meta {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .meta strong { color: var(--dark); }
+
+    /* ── ERROR ── */
+    .error-banner {
+      background: #fdf0ef;
+      border: 1.5px solid #f0bdb8;
+      color: #c0392b;
+      padding: 14px 18px;
+      border-radius: 3px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* ── EMPTY ── */
+    .empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
+    }
+
+    .empty p { font-size: 15px; margin-bottom: 16px; }
+
+    /* ── TABLE ── */
+    .table-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow-x: auto;
+      box-shadow: 0 4px 20px rgba(26,18,9,0.07);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      min-width: 900px;
+    }
+
+    thead {
+      background: var(--dark);
+      color: #fff;
+    }
+
+    thead th {
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #faf4ec; }
+
+    td {
+      padding: 13px 16px;
+      color: var(--dark);
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #f0e8dc;
+      color: var(--mid);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 18px;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>All <span>Registered</span> Students</h1>
+    <a href="/" class="btn-back">← Back to Home</a>
+  </div>
+
+  <main>
+
+    {% if error %}
+      <div class="error-banner">⚠️ {{ error }}</div>
+
+    {% elif students|length == 0 %}
+      <div class="empty">
+        <p>No students registered yet.</p>
+        <a href="/" class="btn-back">Register the first student →</a>
+      </div>
+
+    {% else %}
+      <p class="meta">Showing <strong>{{ students|length }}</strong> registered student(s) — latest first.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>College</th>
+              <th>Department</th>
+              <th>Year</th>
+              <th>Domain</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Registered At</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in students %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td><strong>{{ s.full_name }}</strong></td>
+              <td>{{ s.email }}</td>
+              <td>{{ s.phone }}</td>
+              <td>{{ s.college }}</td>
+              <td>{{ s.department }}</td>
+              <td><span class="badge">{{ s.year_of_study }}</span></td>
+              <td>{{ s.internship_domain }}</td>
+              <td>{{ s.start_date }}</td>
+              <td>{{ s.end_date }}</td>
+              <td>{{ s.registered_at }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+
+  </main>
+
+  <footer>
+    Internship Portal © 2025
+  </footer>
+
+</body>
+</html>

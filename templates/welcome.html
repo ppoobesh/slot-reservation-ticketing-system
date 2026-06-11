@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registration Successful</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #f5f0e8;
+      --card:    #fffdf9;
+      --accent:  #c8401e;
+      --dark:    #1a1209;
+      --mid:     #5c4a2a;
+      --muted:   #9e8c72;
+      --border:  #e2d9c8;
+      --green:   #2d8a4e;
+      --green-bg:#edf7f1;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'Nunito', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 48px 44px;
+      width: 100%;
+      max-width: 620px;
+      box-shadow: 0 8px 40px rgba(26,18,9,0.10);
+      text-align: center;
+    }
+
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--green-bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 28px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+
+    /* Details table */
+    .details {
+      text-align: left;
+      border-top: 2px solid var(--accent);
+      margin-top: 8px;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 16px;
+    }
+
+    .detail-key {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--mid);
+      min-width: 140px;
+    }
+
+    .detail-val {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--dark);
+      text-align: right;
+    }
+
+    /* Buttons */
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 13px;
+      border-radius: 3px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover { background: #a8321a; transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: var(--dark);
+      color: #fff;
+    }
+
+    .btn-secondary:hover { background: #333; transform: translateY(-1px); }
+
+    @media (max-width: 500px) {
+      .card { padding: 28px 18px; }
+      .btn-group { flex-direction: column; }
+      .detail-key { min-width: 110px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="success-icon">✅</div>
+    <h1>You're Registered!</h1>
+    <p class="subtitle">Your internship application has been submitted successfully.</p>
+
+    <div class="details">
+      <div class="detail-row">
+        <span class="detail-key">Full Name</span>
+        <span class="detail-val">{{ student.full_name }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Email</span>
+        <span class="detail-val">{{ student.email }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Phone</span>
+        <span class="detail-val">{{ student.phone }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">College</span>
+        <span class="detail-val">{{ student.college }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Department</span>
+        <span class="detail-val">{{ student.department }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Year of Study</span>
+        <span class="detail-val">{{ student.year_of_study }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Domain</span>
+        <span class="detail-val">{{ student.internship_domain }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Start Date</span>
+        <span class="detail-val">{{ student.start_date }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">End Date</span>
+        <span class="detail-val">{{ student.end_date }}</span>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <a href="/" class="btn btn-primary">← Register Another</a>
+      <a href="/students" class="btn btn-secondary">📋 View All Students</a>
+    </div>
+  </div>
+
+</body>
+</html>
